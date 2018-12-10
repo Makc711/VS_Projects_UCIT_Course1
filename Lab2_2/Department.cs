@@ -4,8 +4,18 @@ namespace Lab2_2
 {
     class Department : IEquatable<Department>
     {
+        private Emporium _emporium;
         public int Area { get; private set; }
         public string Name { get; }
+
+        public Emporium Emporium
+        {
+            set
+            {
+                if (_emporium == null)
+                    _emporium = value;
+            }
+        }
 
         public Department(string name, int area)
         {
@@ -15,6 +25,7 @@ namespace Lab2_2
 
         public void ExpandArea(int area)
         {
+            _emporium.OccupyArea(area);
             Area += area;
         }
 
@@ -23,6 +34,7 @@ namespace Lab2_2
             if (Area > area)
             {
                 Area -= area;
+                _emporium.ClearArea(area);
             }
             else
             {

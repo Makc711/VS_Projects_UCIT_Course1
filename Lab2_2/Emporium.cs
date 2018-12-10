@@ -5,23 +5,23 @@ namespace Lab2_2
 {
     class Emporium
     {
-        private readonly string _name;
         private int _areaOfEmporium;
         private int _freeArea;
         private readonly Cashbox _cashbox;
         private readonly List<Department> _departments = new List<Department>();
+        public string Name { get; }
 
         public Emporium(string name, int budget)
         {
-            _name = name;
+            Name = name;
             _cashbox = new Cashbox(budget);
         }
 
-        public void ExpandArea(int area, int costOfOneMeter)
+        public void BuyArea(int area, int costOfOneMeter)
         {
             _cashbox.Buy(area * costOfOneMeter);
             _areaOfEmporium += area;
-            _freeArea += area;
+            ClearArea(area);
         }
 
         public void SellArea(int area, int costOfOneMeter)
@@ -38,70 +38,53 @@ namespace Lab2_2
             }
         }
 
-        public void CreateDepartment(string name, int area)
+        public void OccupyArea(int area)
         {
-            Department department = new Department(name, area);
-            if (!_departments.Contains(department))
+            if (_freeArea >= area)
             {
-                _departments.Add(department);
                 _freeArea -= area;
             }
             else
             {
-                throw new ArgumentException($"Отдел {name} уже существует");
+                throw new ArgumentException($"В универмаге не достаточно свободной площади ({_freeArea} < {area})");
             }
         }
 
-        public void RemoveDepartment(string name)
+        public void ClearArea(int area)
         {
-            if (_departments.Exists(x => x.Name == name))
+            _freeArea += area;
+        }
+
+        public void CreateDepartment(Department department)
+        {
+            if (!_departments.Contains(department))
             {
-                Department department = _departments.Find(x => x.Name == name);
-                _freeArea += department.Area;
+                department.Emporium = this;
+                _departments.Add(department);
+                _freeArea -= department.Area;
+            }
+            else
+            {
+                throw new ArgumentException($"Отдел {department.Name} уже существует");
+            }
+        }
+
+        public void RemoveDepartment(Department department)
+        {
+            if (_departments.Contains(department))
+            {
+                ClearArea(department.Area);
                 _departments.Remove(department);
             }
             else
             {
-                throw new ArgumentException($"В универмаге нет отдела {name}");
-            }
-        }
-
-        public void ExpandAreaOfDepartment(string name, int area)
-        {
-            if (_departments.Exists(x => x.Name == name))
-            {
-                if (_freeArea >= area)
-                {
-                    _departments.Find(x => x.Name == name).ExpandArea(area);
-                    _freeArea -= area;
-                }
-                else
-                {
-                    throw new ArgumentException($"В универмаге не достаточно свободной площади ({_freeArea} < {area})");
-                }
-            }
-            else
-            {
-                throw new ArgumentException($"В универмаге нет отдела {name}");
-            }
-        }
-
-        public void ReduceAreaOfDepartment(string name, int area)
-        {
-            if (_departments.Exists(x => x.Name == name))
-            {
-                _departments.Find(x => x.Name == name).ReduceArea(area);
-                _freeArea += area;
-            }
-            else
-            {
-                throw new ArgumentException($"В универмаге нет отдела {name}");
+                throw new ArgumentException($"В универмаге нет отдела {department.Name}");
             }
         }
 
         public void ShowInformation()
         {
-            Console.WriteLine($"Название: {_name}");
+            Console.WriteLine($"Название: {Name}");
             Console.WriteLine($"Площадь универмага: {_areaOfEmporium:0,0} м^2");
             Console.WriteLine($"Свободная площадь:  {_freeArea:0,0} м^2");
             _cashbox.ShowFinances();

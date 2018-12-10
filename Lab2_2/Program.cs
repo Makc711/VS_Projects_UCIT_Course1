@@ -6,10 +6,10 @@ namespace Lab2_2
     {
         static void Main()
         {
-            Emporium emporium = new Emporium(name:"Низкоцен", budget:100_000_000);
+            Emporium nizkocen = new Emporium(name:"Низкоцен", budget:100_000_000);
             try
             {
-                emporium.ExpandArea(area:1000, costOfOneMeter:60_000);
+                nizkocen.BuyArea(area:1000, costOfOneMeter:60_000);
             }
             catch (ArgumentException e)
             {
@@ -17,20 +17,12 @@ namespace Lab2_2
                 Console.ReadKey();
                 return;
             }
-            emporium.ShowInformation();
+            nizkocen.ShowInformation();
 
-            try {
-                emporium.CreateDepartment(name: "Хлебобулочные", area: 20);
-            } catch (ArgumentException e) {
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
-                return;
-            }
-            emporium.ShowInformation();
-
+            Department hlebobylochnie = new Department(name: "Хлебобулочные", area: 20);
             try
             {
-                emporium.ExpandAreaOfDepartment(name: "Хлебобулочные", area: 30);
+                nizkocen.CreateDepartment(hlebobylochnie);
             }
             catch (ArgumentException e)
             {
@@ -38,19 +30,31 @@ namespace Lab2_2
                 Console.ReadKey();
                 return;
             }
-            emporium.ShowInformation();
+            nizkocen.ShowInformation();
 
             try
             {
-                emporium.ReduceAreaOfDepartment(name: "Хлебобулочные", area: 10);
+                hlebobylochnie.ExpandArea(30);
             }
-            catch (ArgumentException e)
+            catch (NullReferenceException e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
                 return;
             }
-            emporium.ShowInformation();
+            nizkocen.ShowInformation();
+
+            try
+            {
+                hlebobylochnie.ReduceArea(10);
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
+                return;
+            }
+            nizkocen.ShowInformation();
 
             Console.ReadKey();
         }
