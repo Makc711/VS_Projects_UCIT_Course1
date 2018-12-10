@@ -45,6 +45,7 @@
     <Compile Include="Cashbox.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Emporium.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

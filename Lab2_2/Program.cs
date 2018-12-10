@@ -19,7 +19,7 @@ namespace Lab2_2
             }
             nizkocen.ShowInformation();
 
-            Department hlebobylochnie = new Department(name: "Хлебобулочные", area: 20);
+            Department hlebobylochnie = new Department(name: "Хлебобулочные", area: 20, emporium: nizkocen);
             try
             {
                 nizkocen.CreateDepartment(hlebobylochnie);

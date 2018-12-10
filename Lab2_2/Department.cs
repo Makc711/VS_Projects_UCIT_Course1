@@ -1,26 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lab2_2
 {
     class Department : IEquatable<Department>
     {
-        private Emporium _emporium;
+        private readonly Emporium _emporium;
+        private readonly List<Product> _products = new List<Product>();
+        private int _freeArea;
         public int Area { get; private set; }
         public string Name { get; }
 
-        public Emporium Emporium
-        {
-            set
-            {
-                if (_emporium == null)
-                    _emporium = value;
-            }
-        }
-
-        public Department(string name, int area)
+        public Department(string name, int area, Emporium emporium)
         {
             Name = name;
             Area = area;
+            _freeArea = area;
+            _emporium = emporium;
         }
 
         public void ExpandArea(int area)
@@ -40,6 +36,11 @@ namespace Lab2_2
             {
                 throw new ArgumentException($"В отделе не достаточно площади ({Area} <= {area})");
             }
+        }
+
+        public Cashbox GetCashbox()
+        {
+            return _emporium.Cashbox;
         }
 
         public override string ToString()

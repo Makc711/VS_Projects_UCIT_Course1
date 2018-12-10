@@ -7,14 +7,26 @@ namespace Lab2_2
     {
         private int _areaOfEmporium;
         private int _freeArea;
-        private readonly Cashbox _cashbox;
+        private Cashbox _cashbox;
         private readonly List<Department> _departments = new List<Department>();
         public string Name { get; }
+
+        public Cashbox Cashbox
+        {
+            get => _cashbox;
+            set
+            {
+                if (_cashbox == null)
+                {
+                    _cashbox = value;
+                }
+            }
+        }
 
         public Emporium(string name, int budget)
         {
             Name = name;
-            _cashbox = new Cashbox(budget);
+            Cashbox = new Cashbox(budget);
         }
 
         public void BuyArea(int area, int costOfOneMeter)
@@ -59,7 +71,6 @@ namespace Lab2_2
         {
             if (!_departments.Contains(department))
             {
-                department.Emporium = this;
                 _departments.Add(department);
                 _freeArea -= department.Area;
             }
