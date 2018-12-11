@@ -44,8 +44,8 @@ namespace Lab2_2
         public void SellArea(int area, int costOfOneCentimeter)
         {
             OccupyArea(area);
-            Cashbox.Sell(area * costOfOneCentimeter);
             Area -= area;
+            Cashbox.Sell(area * costOfOneCentimeter);
         }
 
         public void OccupyArea(int area)

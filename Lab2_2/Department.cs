@@ -76,6 +76,19 @@ namespace Lab2_2
             }
         }
 
+        public void RemoveProduct(Product product)
+        {
+            if (Products.Contains(product))
+            {
+                ClearArea(product.Size);
+                Products.Remove(product);
+            }
+            else
+            {
+                throw new ArgumentException($"В отделе нет продукта {product.Name}");
+            }
+        }
+
         public Cashbox GetCashbox()
         {
             return _emporium.Cashbox;

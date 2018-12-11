@@ -4,37 +4,37 @@ namespace Lab2_2
 {
     class Cashbox
     {
-        private int _budget;
-        private int _profit;
+        public int Budget { get; private set; }
+        public int Profit { get; private set; }
 
         public Cashbox(int budget)
         {
-            _budget = budget;
+            Budget = budget;
         }
 
         public void Buy(int cost)
         {
-            if (cost <= _budget) 
+            if (cost <= Budget) 
             {
-                _budget -= cost;
-                _profit -= cost;
+                Budget -= cost;
+                Profit -= cost;
             } 
             else 
             {
-                throw new ArgumentException($"Бюджет {_budget} меньше требуемых вложений {cost}");
+                throw new ArgumentException($"Бюджет {Budget} меньше требуемых вложений {cost}");
             }
         }
 
         public void Sell(int cost)
         {
-            _budget += cost;
-            _profit += cost;
+            Budget += cost;
+            Profit += cost;
         }
 
         public void ShowFinances()
         {
-            Console.WriteLine($"Бюджет:  {_budget:0,0} руб.");
-            Console.WriteLine($"Прибыль: {_profit:0,0} руб.");
+            Console.WriteLine($"Бюджет:  {Budget:0,0} руб.");
+            Console.WriteLine($"Прибыль: {Profit:0,0} руб.");
         }
     }
 }
