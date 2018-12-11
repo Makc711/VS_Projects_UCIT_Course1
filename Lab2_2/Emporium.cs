@@ -5,7 +5,7 @@ namespace Lab2_2
 {
     class Emporium
     {
-        private int _areaOfEmporium;
+        private int _area;
         private int _freeArea;
         private Cashbox _cashbox;
         private readonly List<Department> _departments = new List<Department>();
@@ -29,18 +29,18 @@ namespace Lab2_2
             Cashbox = new Cashbox(budget);
         }
 
-        public void BuyArea(int area, int costOfOneMeter)
+        public void BuyArea(int area, int costOfOneCentimeter)
         {
-            _cashbox.Buy(area * costOfOneMeter);
-            _areaOfEmporium += area;
+            _cashbox.Buy(area * costOfOneCentimeter);
+            _area += area;
             ClearArea(area);
         }
 
-        public void SellArea(int area, int costOfOneMeter)
+        public void SellArea(int area, int costOfOneCentimeter)
         {
             OccupyArea(area);
-            _cashbox.Sell(area * costOfOneMeter);
-            _areaOfEmporium -= area;
+            _cashbox.Sell(area * costOfOneCentimeter);
+            _area -= area;
         }
 
         public void OccupyArea(int area)
@@ -88,8 +88,8 @@ namespace Lab2_2
         public void ShowInformation()
         {
             Console.WriteLine($"Название: {Name}");
-            Console.WriteLine($"Площадь универмага: {_areaOfEmporium:0,0} м^2");
-            Console.WriteLine($"Свободная площадь:  {_freeArea:0,0} м^2");
+            Console.WriteLine($"Площадь универмага: {(double)_area /10000:0,0.0} м^2");
+            Console.WriteLine($"Свободная площадь:  {(double)_freeArea /10000:0,0.0} м^2");
             _cashbox.ShowFinances();
             foreach (var department in _departments)
             {

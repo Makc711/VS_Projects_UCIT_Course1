@@ -80,7 +80,7 @@ namespace Lab2_2
 
         public override string ToString()
         {
-            return $"Отдел: {Name}; Площадь: {Area:0,0} м^2; Свободная площадь: {_freeArea:0,0} м^2";
+            return $"Отдел: {Name}; Площадь: {(double)Area/10000:0,0.0} м^2; Свободная площадь: {(double)_freeArea /10000:0,0.0} м^2";
         }
 
         public bool Equals(Department other)

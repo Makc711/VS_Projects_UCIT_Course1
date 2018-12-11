@@ -5,7 +5,7 @@ namespace Lab2_2
     class Product : IEquatable<Product>
     {
         private readonly Department _department;
-        private readonly int _size; // Занимаемая площадь одним продуктом, м^2
+        private readonly int _size; // Занимаемая площадь одним продуктом, см^2
         private readonly float _markup; // Наценка (150% = 1,5)
         private int _pice;
         private readonly Cashbox _cashbox;
@@ -32,8 +32,16 @@ namespace Lab2_2
 
         public void Sell(int quantity)
         {
-            _cashbox.Sell(quantity * _pice);
-            _department.ClearArea(quantity * _size);
+            if (Quantity >= quantity)
+            {
+                Quantity -= quantity;
+                _cashbox.Sell(quantity * _pice);
+                _department.ClearArea(quantity * _size);
+            }
+            else
+            {
+                throw new ArgumentException($"Продукт {Name} закончился ({Quantity} < {quantity})");
+            }
         }
 
         public override string ToString()
