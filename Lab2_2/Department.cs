@@ -21,6 +21,18 @@ namespace Lab2_2
             emporium.OccupyArea(area);
         }
 
+        public Product this[int i]
+        {
+            get
+            {
+                if (i >= 0 && i < Products.Count)
+                    return (Products[i]);
+                else
+                    return (Products[0]);
+            }
+        }
+
+
         public void ExpandArea(int area)
         {
             _emporium.OccupyArea(area);

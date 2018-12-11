@@ -45,6 +45,8 @@ namespace Lab2_2
             kefir.Sell(quantity: 1380);
             nizkocen.ShowInformation();
 
+            Console.WriteLine(hlebobylochnie[1]);
+
             Console.ReadKey();
         }
     }

@@ -17,6 +17,11 @@ namespace Lab2_2
             Cashbox = new Cashbox(budget);
         }
 
+        public Emporium(string name, int budget, int area) : this(name, budget)
+        {
+            Area = area;
+        }
+
         public Cashbox Cashbox
         {
             get => _cashbox;
