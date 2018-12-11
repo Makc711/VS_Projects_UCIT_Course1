@@ -20,16 +20,6 @@ namespace Lab2_2
             nizkocen.ShowInformation();
 
             Department hlebobylochnie = new Department(name: "Хлебобулочные", area: 20, emporium: nizkocen);
-            try
-            {
-                nizkocen.CreateDepartment(hlebobylochnie);
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
-                return;
-            }
             nizkocen.ShowInformation();
 
             try
@@ -54,6 +44,14 @@ namespace Lab2_2
                 Console.ReadKey();
                 return;
             }
+            nizkocen.ShowInformation();
+
+            Product hleb = new Product(name:"Хлеб", size:2, markup:3.0f, department:hlebobylochnie);
+            hleb.Buy(quantity:8, price:10);
+            Product bylochka = new Product(name: "Булочка", size: 1, markup: 2.5f, department: hlebobylochnie);
+            bylochka.Buy(quantity: 7, price: 8);
+            Product pirojok = new Product(name: "Пирожок", size: 1, markup: 2.8f, department: hlebobylochnie);
+            pirojok.Buy(quantity: 5, price: 6);
             nizkocen.ShowInformation();
 
             Console.ReadKey();

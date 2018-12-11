@@ -6,10 +6,10 @@ namespace Lab2_2
     class Department : IEquatable<Department>
     {
         private readonly Emporium _emporium;
-        private readonly List<Product> _products = new List<Product>();
         private int _freeArea;
         public int Area { get; private set; }
         public string Name { get; }
+        public List<Product> Products { get; } = new List<Product>();
 
         public Department(string name, int area, Emporium emporium)
         {
@@ -17,24 +17,50 @@ namespace Lab2_2
             Area = area;
             _freeArea = area;
             _emporium = emporium;
+            emporium.AddDepartment(this);
+            emporium.OccupyArea(area);
         }
 
         public void ExpandArea(int area)
         {
             _emporium.OccupyArea(area);
             Area += area;
+            ClearArea(area);
         }
 
         public void ReduceArea(int area)
         {
-            if (Area > area)
+            OccupyArea(area);
+            Area -= area;
+            _emporium.ClearArea(area);
+        }
+
+        public void OccupyArea(int area)
+        {
+            if (_freeArea >= area)
             {
-                Area -= area;
-                _emporium.ClearArea(area);
+                _freeArea -= area;
             }
             else
             {
-                throw new ArgumentException($"В отделе не достаточно площади ({Area} <= {area})");
+                throw new ArgumentException($"В отделе не достаточно свободной площади ({_freeArea} < {area})");
+            }
+        }
+
+        public void ClearArea(int area)
+        {
+            _freeArea += area;
+        }
+
+        public void AddProduct(Product product)
+        {
+            if (!Products.Contains(product))
+            {
+                Products.Add(product);
+            }
+            else
+            {
+                throw new ArgumentException($"Продукт {product.Name} уже существует");
             }
         }
 
@@ -43,9 +69,18 @@ namespace Lab2_2
             return _emporium.Cashbox;
         }
 
+        public void ShowInformation()
+        {
+            Console.WriteLine(this);
+            foreach (var product in Products)
+            {
+                Console.WriteLine("\t" + product);
+            }
+        }
+
         public override string ToString()
         {
-            return $"Отдел: {Name}; Площадь: {Area:0,0} м^2";
+            return $"Отдел: {Name}; Площадь: {Area:0,0} м^2; Свободная площадь: {_freeArea:0,0} м^2";
         }
 
         public bool Equals(Department other)

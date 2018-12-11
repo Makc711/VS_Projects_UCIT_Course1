@@ -38,16 +38,9 @@ namespace Lab2_2
 
         public void SellArea(int area, int costOfOneMeter)
         {
-            if (_freeArea >= area)
-            {
-                _cashbox.Sell(area * costOfOneMeter);
-                _areaOfEmporium -= area;
-                _freeArea -= area;
-            }
-            else
-            {
-                throw new ArgumentException($"Продаваемая площадь {area} больше свободной площади {_freeArea}");
-            }
+            OccupyArea(area);
+            _cashbox.Sell(area * costOfOneMeter);
+            _areaOfEmporium -= area;
         }
 
         public void OccupyArea(int area)
@@ -67,12 +60,11 @@ namespace Lab2_2
             _freeArea += area;
         }
 
-        public void CreateDepartment(Department department)
+        public void AddDepartment(Department department)
         {
             if (!_departments.Contains(department))
             {
                 _departments.Add(department);
-                _freeArea -= department.Area;
             }
             else
             {
@@ -101,7 +93,7 @@ namespace Lab2_2
             _cashbox.ShowFinances();
             foreach (var department in _departments)
             {
-                Console.WriteLine(department);
+                department.ShowInformation();
             }
             Console.WriteLine();
         }
