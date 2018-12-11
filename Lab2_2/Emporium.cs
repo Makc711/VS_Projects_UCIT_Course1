@@ -3,12 +3,10 @@ using System.Collections.Generic;
 
 namespace Lab2_2
 {
-    class Emporium
+    class Emporium : Square
     {
         private Cashbox _cashbox;
         public string Name { get; }
-        public int Area { get; private set; } // Площадь, см^2
-        public int FreeArea { get; private set; }
         public List<Department> Departments { get; } = new List<Department>();
 
         public Emporium(string name, int budget)
@@ -34,35 +32,16 @@ namespace Lab2_2
             }
         }
 
-        public void BuyArea(int area, int costOfOneCentimeter)
+        public void ExpandArea(int area, int costOfOneCentimeter)
         {
             Cashbox.Buy(area * costOfOneCentimeter);
-            Area += area;
-            ClearArea(area);
+            base.ExpandArea(area);
         }
 
-        public void SellArea(int area, int costOfOneCentimeter)
+        public void ReduceArea(int area, int costOfOneCentimeter)
         {
-            OccupyArea(area);
-            Area -= area;
+            base.ReduceArea(area);
             Cashbox.Sell(area * costOfOneCentimeter);
-        }
-
-        public void OccupyArea(int area)
-        {
-            if (FreeArea >= area)
-            {
-                FreeArea -= area;
-            }
-            else
-            {
-                throw new ArgumentException($"В универмаге не достаточно свободной площади ({FreeArea} < {area})");
-            }
-        }
-
-        public void ClearArea(int area)
-        {
-            FreeArea += area;
         }
 
         public void AddDepartment(Department department)

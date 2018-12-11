@@ -3,12 +3,10 @@ using System.Collections.Generic;
 
 namespace Lab2_2
 {
-    class Department : IEquatable<Department>
+    class Department : Square
     {
         private readonly Emporium _emporium;
         public string Name { get; }
-        public int Area { get; private set; }
-        public int FreeArea { get; private set; }
         public List<Product> Products { get; } = new List<Product>();
 
         public Department(string name, int area, Emporium emporium)
@@ -26,42 +24,22 @@ namespace Lab2_2
             get
             {
                 if (i >= 0 && i < Products.Count)
-                    return (Products[i]);
+                    return Products[i];
                 else
-                    return (Products[0]);
+                    return Products[0];
             }
         }
 
-
-        public void ExpandArea(int area)
+        public override void ExpandArea(int area)
         {
             _emporium.OccupyArea(area);
-            Area += area;
-            ClearArea(area);
+            base.ExpandArea(area);
         }
 
-        public void ReduceArea(int area)
+        public override void ReduceArea(int area)
         {
-            OccupyArea(area);
-            Area -= area;
+            base.ReduceArea(area);
             _emporium.ClearArea(area);
-        }
-
-        public void OccupyArea(int area)
-        {
-            if (FreeArea >= area)
-            {
-                FreeArea -= area;
-            }
-            else
-            {
-                throw new ArgumentException($"В отделе не достаточно свободной площади ({FreeArea} < {area})");
-            }
-        }
-
-        public void ClearArea(int area)
-        {
-            FreeArea += area;
         }
 
         public void AddProduct(Product product)

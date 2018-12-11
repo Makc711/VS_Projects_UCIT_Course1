@@ -4,8 +4,8 @@ namespace Lab2_2
 {
     abstract class Square
     {
-        public int Area { get; private set; }
-        public int FreeArea { get; private set; }
+        public int Area { get; protected internal set; } // Площадь, см^2
+        public int FreeArea { get; protected internal set; }
 
         public virtual void ExpandArea(int area)
         {

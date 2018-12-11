@@ -9,7 +9,7 @@ namespace Lab2_2
             Emporium nizkocen = new Emporium(name:"Низкоцен", budget:100_000_000);
             try
             {
-                nizkocen.BuyArea(area:10_000_000, costOfOneCentimeter:6);
+                nizkocen.ExpandArea(area:10_000_000, costOfOneCentimeter:6);
             }
             catch (ArgumentException e)
             {
