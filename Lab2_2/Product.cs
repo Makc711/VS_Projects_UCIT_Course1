@@ -5,18 +5,18 @@ namespace Lab2_2
     class Product : IEquatable<Product>
     {
         private readonly Department _department;
-        private readonly int _size; // Занимаемая площадь одним продуктом, см^2
-        private readonly float _markup; // Наценка (150% = 1,5)
-        private int _pice;
         private readonly Cashbox _cashbox;
         public string Name { get; }
         public int Quantity { get; private set; }
+        public int Size { get; } // Занимаемая площадь одним продуктом, см^2
+        public float Markup { get; } // Наценка (150% = 1,5)
+        public int Pice { get; private set; }
 
         public Product(string name, int size, float markup, Department department)
         {
             Name = name;
-            _size = size;
-            _markup = markup;
+            Size = size;
+            Markup = markup;
             _department = department;
             _cashbox = department.GetCashbox();
             _department.AddProduct(this);
@@ -25,9 +25,9 @@ namespace Lab2_2
         public void Buy(int quantity, int price)
         {
             _cashbox.Buy(quantity * price);
-            _department.OccupyArea(quantity * _size);
+            _department.OccupyArea(quantity * Size);
             Quantity += quantity;
-            _pice = (int) (price * _markup);
+            Pice = (int) (price * Markup);
         }
 
         public void Sell(int quantity)
@@ -35,8 +35,8 @@ namespace Lab2_2
             if (Quantity >= quantity)
             {
                 Quantity -= quantity;
-                _cashbox.Sell(quantity * _pice);
-                _department.ClearArea(quantity * _size);
+                _cashbox.Sell(quantity * Pice);
+                _department.ClearArea(quantity * Size);
             }
             else
             {
@@ -46,7 +46,7 @@ namespace Lab2_2
 
         public override string ToString()
         {
-            return $"{Name}; Количество: {Quantity}; Цена: {_pice}";
+            return $"{Name}; Количество: {Quantity}; Цена: {Pice}";
         }
 
         public bool Equals(Product other)

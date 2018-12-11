@@ -5,11 +5,17 @@ namespace Lab2_2
 {
     class Emporium
     {
-        private int _area;
-        private int _freeArea;
         private Cashbox _cashbox;
-        private readonly List<Department> _departments = new List<Department>();
         public string Name { get; }
+        public int Area { get; private set; } // Площадь, см^2
+        public int FreeArea { get; private set; }
+        public List<Department> Departments { get; } = new List<Department>();
+
+        public Emporium(string name, int budget)
+        {
+            Name = name;
+            Cashbox = new Cashbox(budget);
+        }
 
         public Cashbox Cashbox
         {
@@ -23,48 +29,42 @@ namespace Lab2_2
             }
         }
 
-        public Emporium(string name, int budget)
-        {
-            Name = name;
-            Cashbox = new Cashbox(budget);
-        }
-
         public void BuyArea(int area, int costOfOneCentimeter)
         {
-            _cashbox.Buy(area * costOfOneCentimeter);
-            _area += area;
+            Cashbox.Buy(area * costOfOneCentimeter);
+            Area += area;
             ClearArea(area);
         }
 
         public void SellArea(int area, int costOfOneCentimeter)
         {
             OccupyArea(area);
-            _cashbox.Sell(area * costOfOneCentimeter);
-            _area -= area;
+            Cashbox.Sell(area * costOfOneCentimeter);
+            Area -= area;
         }
 
         public void OccupyArea(int area)
         {
-            if (_freeArea >= area)
+            if (FreeArea >= area)
             {
-                _freeArea -= area;
+                FreeArea -= area;
             }
             else
             {
-                throw new ArgumentException($"В универмаге не достаточно свободной площади ({_freeArea} < {area})");
+                throw new ArgumentException($"В универмаге не достаточно свободной площади ({FreeArea} < {area})");
             }
         }
 
         public void ClearArea(int area)
         {
-            _freeArea += area;
+            FreeArea += area;
         }
 
         public void AddDepartment(Department department)
         {
-            if (!_departments.Contains(department))
+            if (!Departments.Contains(department))
             {
-                _departments.Add(department);
+                Departments.Add(department);
             }
             else
             {
@@ -74,10 +74,10 @@ namespace Lab2_2
 
         public void RemoveDepartment(Department department)
         {
-            if (_departments.Contains(department))
+            if (Departments.Contains(department))
             {
                 ClearArea(department.Area);
-                _departments.Remove(department);
+                Departments.Remove(department);
             }
             else
             {
@@ -88,10 +88,10 @@ namespace Lab2_2
         public void ShowInformation()
         {
             Console.WriteLine($"Название: {Name}");
-            Console.WriteLine($"Площадь универмага: {(double)_area /10000:0,0.0} м^2");
-            Console.WriteLine($"Свободная площадь:  {(double)_freeArea /10000:0,0.0} м^2");
-            _cashbox.ShowFinances();
-            foreach (var department in _departments)
+            Console.WriteLine($"Площадь универмага: {(double)Area /10000:0,0.0} м^2");
+            Console.WriteLine($"Свободная площадь:  {(double)FreeArea /10000:0,0.0} м^2");
+            Cashbox.ShowFinances();
+            foreach (var department in Departments)
             {
                 department.ShowInformation();
             }

@@ -6,16 +6,16 @@ namespace Lab2_2
     class Department : IEquatable<Department>
     {
         private readonly Emporium _emporium;
-        private int _freeArea;
-        public int Area { get; private set; }
         public string Name { get; }
+        public int Area { get; private set; }
+        public int FreeArea { get; private set; }
         public List<Product> Products { get; } = new List<Product>();
 
         public Department(string name, int area, Emporium emporium)
         {
             Name = name;
             Area = area;
-            _freeArea = area;
+            FreeArea = area;
             _emporium = emporium;
             emporium.AddDepartment(this);
             emporium.OccupyArea(area);
@@ -37,19 +37,19 @@ namespace Lab2_2
 
         public void OccupyArea(int area)
         {
-            if (_freeArea >= area)
+            if (FreeArea >= area)
             {
-                _freeArea -= area;
+                FreeArea -= area;
             }
             else
             {
-                throw new ArgumentException($"В отделе не достаточно свободной площади ({_freeArea} < {area})");
+                throw new ArgumentException($"В отделе не достаточно свободной площади ({FreeArea} < {area})");
             }
         }
 
         public void ClearArea(int area)
         {
-            _freeArea += area;
+            FreeArea += area;
         }
 
         public void AddProduct(Product product)
@@ -80,7 +80,7 @@ namespace Lab2_2
 
         public override string ToString()
         {
-            return $"Отдел: {Name}; Площадь: {(double)Area/10000:0,0.0} м^2; Свободная площадь: {(double)_freeArea /10000:0,0.0} м^2";
+            return $"Отдел: {Name}; Площадь: {(double)Area/10000:0,0.0} м^2; Свободная площадь: {(double)FreeArea /10000:0,0.0} м^2";
         }
 
         public bool Equals(Department other)
