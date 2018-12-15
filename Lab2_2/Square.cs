@@ -2,18 +2,24 @@
 
 namespace Lab2_2
 {
-    abstract class Square
+    class Square
     {
-        public int Area { get; protected internal set; } // Площадь, см^2
-        public int FreeArea { get; protected internal set; }
+        public int Area { get; private set; } // Полная площадь, см^2
+        public int FreeArea { get; private set; } // Свободная площадь, см^2
 
-        public virtual void ExpandArea(int area)
+        public Square(int area)
         {
-            Area += area;
-            ClearArea(area);
+            Area = area;
+            FreeArea = area;
         }
 
-        public virtual void ReduceArea(int area)
+        public void ExpandArea(int area)
+        {
+            Area += area;
+            VacateArea(area);
+        }
+
+        public void ReduceArea(int area)
         {
             OccupyArea(area);
             Area -= area;
@@ -31,9 +37,16 @@ namespace Lab2_2
             }
         }
 
-        public void ClearArea(int area)
+        public void VacateArea(int area)
         {
-            FreeArea += area;
+            if (Area >= FreeArea + area)
+            {
+                FreeArea += area;
+            }
+            else
+            {
+                throw new ArgumentException($"Не достаточно полной площади ({Area} < {FreeArea + area})");
+            }
         }
     }
 }

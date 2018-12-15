@@ -3,43 +3,33 @@ using System.Collections.Generic;
 
 namespace Lab2_2
 {
-    class Department : Square
+    class Department : IEquatable<Department>
     {
-        private readonly Emporium _emporium;
         public string Name { get; }
+        public Square Square { get; }
+        public Emporium Emporium { get; }
         public List<Product> Products { get; } = new List<Product>();
 
         public Department(string name, int area, Emporium emporium)
         {
             Name = name;
-            Area = area;
-            FreeArea = area;
-            _emporium = emporium;
-            emporium.AddDepartment(this);
-            emporium.OccupyArea(area);
+            Square = new Square(area);
+            Emporium = emporium;
+            Emporium.AddDepartment(this);
         }
 
-        public Product this[int i]
+        public Product this[int i] => Products[(i >= 0 && i < Products.Count) ? i : 0];
+
+        public void ExpandArea(int area)
         {
-            get
-            {
-                if (i >= 0 && i < Products.Count)
-                    return Products[i];
-                else
-                    return Products[0];
-            }
+            Emporium.Square.OccupyArea(area);
+            Square.ExpandArea(area);
         }
 
-        public override void ExpandArea(int area)
+        public void ReduceArea(int area)
         {
-            _emporium.OccupyArea(area);
-            base.ExpandArea(area);
-        }
-
-        public override void ReduceArea(int area)
-        {
-            base.ReduceArea(area);
-            _emporium.ClearArea(area);
+            Square.ReduceArea(area);
+            Emporium.Square.VacateArea(area);
         }
 
         public void AddProduct(Product product)
@@ -58,7 +48,7 @@ namespace Lab2_2
         {
             if (Products.Contains(product))
             {
-                ClearArea(product.Size);
+                Square.VacateArea(product.Size);
                 Products.Remove(product);
             }
             else
@@ -67,9 +57,26 @@ namespace Lab2_2
             }
         }
 
-        public Cashbox GetCashbox()
+        public void BuyProduct(Product product, int quantity, int price)
         {
-            return _emporium.Cashbox;
+            Emporium.Cashbox.Buy(quantity * price);
+            Square.OccupyArea(quantity * product.Size);
+            product.Quantity += quantity;
+            product.Pice = (int)(price * product.Markup);
+        }
+
+        public void SellProduct(Product product, int quantity)
+        {
+            if (product.Quantity >= quantity)
+            {
+                product.Quantity -= quantity;
+                Emporium.Cashbox.Sell(quantity * product.Pice);
+                Square.VacateArea(quantity * product.Size);
+            }
+            else
+            {
+                throw new ArgumentException($"Продукт {Name} закончился ({product.Quantity} < {quantity})");
+            }
         }
 
         public void ShowInformation()
@@ -83,7 +90,7 @@ namespace Lab2_2
 
         public override string ToString()
         {
-            return $"Отдел: {Name}; Площадь: {(double)Area/10000:0,0.0} м^2; Свободная площадь: {(double)FreeArea /10000:0,0.0} м^2";
+            return $"Отдел: {Name}; Площадь: {(double)Square.Area /10000:0,0.0} м^2; Свободная площадь: {(double)Square.FreeArea /10000:0,0.0} м^2";
         }
 
         public bool Equals(Department other)

@@ -20,29 +20,29 @@ namespace Lab2_2
             nizkocen.ShowInformation();
 
             Department hlebobylochnie = new Department(name: "Хлебобулочные", area: 1_500_000, emporium: nizkocen);
-            Product hleb = new Product(name:"Хлеб", size:200, markup:3.0f, department:hlebobylochnie);
-            hleb.Buy(quantity:1500, price:10);
+            Product hleb = new Product(name: "Хлеб", size: 200, markup: 3.0f, department: hlebobylochnie);
+            hlebobylochnie.BuyProduct(product: hleb, quantity: 1500, price:10);
             Product bylochka = new Product(name: "Булочка", size: 100, markup: 2.5f, department: hlebobylochnie);
-            bylochka.Buy(quantity: 800, price: 8);
+            hlebobylochnie.BuyProduct(product: bylochka, quantity: 800, price: 8);
             Product pirojok = new Product(name: "Пирожок", size: 84, markup: 2.8f, department: hlebobylochnie);
-            pirojok.Buy(quantity: 700, price: 6);
+            hlebobylochnie.BuyProduct(product: pirojok, quantity: 700, price: 6);
             nizkocen.ShowInformation();
 
             Department molochka = new Department(name: "Молочная продукция", area: 4_200_000, emporium: nizkocen);
             Product moloko = new Product(name: "Молоко", size: 400, markup: 3.0f, department: molochka);
-            moloko.Buy(quantity: 2000, price: 15);
+            molochka.BuyProduct(product: moloko, quantity: 2000, price: 15);
             Product smetana = new Product(name: "Сметана", size: 200, markup: 3.0f, department: molochka);
-            smetana.Buy(quantity: 1800, price: 20);
+            molochka.BuyProduct(product: smetana, quantity: 1800, price: 20);
             Product kefir = new Product(name: "Кефир", size: 300, markup: 3.2f, department: molochka);
-            kefir.Buy(quantity: 1600, price: 13);
+            molochka.BuyProduct(product: kefir, quantity: 1600, price: 13);
             nizkocen.ShowInformation();
 
-            hleb.Sell(quantity: 1300);
-            bylochka.Sell(quantity: 700);
-            pirojok.Sell(quantity: 650);
-            moloko.Sell(quantity: 1800);
-            smetana.Sell(quantity: 1650);
-            kefir.Sell(quantity: 1380);
+            hlebobylochnie.SellProduct(product: hleb, quantity: 1300);
+            hlebobylochnie.SellProduct(product: bylochka, quantity: 700);
+            hlebobylochnie.SellProduct(product: pirojok, quantity: 650);
+            molochka.SellProduct(product: moloko, quantity: 1800);
+            molochka.SellProduct(product: smetana, quantity: 1650);
+            molochka.SellProduct(product: kefir, quantity: 1380);
             nizkocen.ShowInformation();
 
             Console.WriteLine(hlebobylochnie[1]);

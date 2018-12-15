@@ -4,11 +4,13 @@ namespace Lab2_2
 {
     class Cashbox
     {
+        public int StartupCapital { get; }
         public int Budget { get; private set; }
-        public int Profit { get; private set; }
+        public int Profit => Budget - StartupCapital;
 
         public Cashbox(int budget)
         {
+            StartupCapital = budget;
             Budget = budget;
         }
 
@@ -17,18 +19,16 @@ namespace Lab2_2
             if (cost <= Budget) 
             {
                 Budget -= cost;
-                Profit -= cost;
             } 
             else 
             {
-                throw new ArgumentException($"Бюджет {Budget} меньше требуемых вложений {cost}");
+                throw new ArgumentException($"Бюджет {Budget} меньше требуемых затрат {cost}");
             }
         }
 
         public void Sell(int cost)
         {
             Budget += cost;
-            Profit += cost;
         }
 
         public void ShowFinances()

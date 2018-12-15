@@ -3,44 +3,34 @@ using System.Collections.Generic;
 
 namespace Lab2_2
 {
-    class Emporium : Square
+    class Emporium
     {
-        private Cashbox _cashbox;
         public string Name { get; }
+        public Cashbox Cashbox { get; }
+        public Square Square { get; }
         public List<Department> Departments { get; } = new List<Department>();
 
         public Emporium(string name, int budget)
         {
             Name = name;
             Cashbox = new Cashbox(budget);
+            Square = new Square(0);
         }
 
         public Emporium(string name, int budget, int area) : this(name, budget)
         {
-            Area = area;
-        }
-
-        public Cashbox Cashbox
-        {
-            get => _cashbox;
-            set
-            {
-                if (_cashbox == null)
-                {
-                    _cashbox = value;
-                }
-            }
+            Square = new Square(area);
         }
 
         public void ExpandArea(int area, int costOfOneCentimeter)
         {
             Cashbox.Buy(area * costOfOneCentimeter);
-            base.ExpandArea(area);
+            Square.ExpandArea(area);
         }
 
         public void ReduceArea(int area, int costOfOneCentimeter)
         {
-            base.ReduceArea(area);
+            Square.ReduceArea(area);
             Cashbox.Sell(area * costOfOneCentimeter);
         }
 
@@ -48,6 +38,7 @@ namespace Lab2_2
         {
             if (!Departments.Contains(department))
             {
+                Square.OccupyArea(department.Square.Area);
                 Departments.Add(department);
             }
             else
@@ -60,7 +51,7 @@ namespace Lab2_2
         {
             if (Departments.Contains(department))
             {
-                ClearArea(department.Area);
+                Square.VacateArea(department.Square.Area);
                 Departments.Remove(department);
             }
             else
@@ -72,8 +63,8 @@ namespace Lab2_2
         public void ShowInformation()
         {
             Console.WriteLine($"Название: {Name}");
-            Console.WriteLine($"Площадь универмага: {(double)Area /10000:0,0.0} м^2");
-            Console.WriteLine($"Свободная площадь:  {(double)FreeArea /10000:0,0.0} м^2");
+            Console.WriteLine($"Площадь универмага: {(double)Square.Area /10000:0,0.0} м^2");
+            Console.WriteLine($"Свободная площадь:  {(double)Square.FreeArea /10000:0,0.0} м^2");
             Cashbox.ShowFinances();
             foreach (var department in Departments)
             {
