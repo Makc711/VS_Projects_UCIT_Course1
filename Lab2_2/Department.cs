@@ -40,7 +40,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"Продукт {product.Name} уже существует");
+                throw new ArgumentException($"Товар {product.Name} уже существует");
             }
         }
 
@@ -48,12 +48,19 @@ namespace Lab2_2
         {
             if (Products.Contains(product))
             {
-                Square.VacateArea(product.Size);
-                Products.Remove(product);
+                if (product.Quantity == 0)
+                {
+                    Square.VacateArea(product.Size);
+                    Products.Remove(product);
+                }
+                else
+                {
+                    throw new InvalidOperationException($"В отделе в имеется еще {product.Quantity} товаров {product.Name}");
+                }
             }
             else
             {
-                throw new ArgumentException($"В отделе нет продукта {product.Name}");
+                throw new ArgumentException($"В отделе нет товара {product.Name}");
             }
         }
 
@@ -75,7 +82,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"Продукт {Name} закончился ({product.Quantity} < {quantity})");
+                throw new ArgumentException($"Товар {Name} закончился ({product.Quantity} < {quantity})");
             }
         }
 

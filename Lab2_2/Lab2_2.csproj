@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Appliances.cs" />
+    <Compile Include="Food.cs" />
+    <Compile Include="HouseholdChemicals.cs" />
     <Compile Include="Square.cs" />
     <Compile Include="Cashbox.cs" />
     <Compile Include="Department.cs" />

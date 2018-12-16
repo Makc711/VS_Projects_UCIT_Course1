@@ -20,20 +20,20 @@ namespace Lab2_2
             nizkocen.ShowInformation();
 
             Department hlebobylochnie = new Department(name: "Хлебобулочные", area: 1_500_000, emporium: nizkocen);
-            Product hleb = new Product(name: "Хлеб", size: 200, markup: 3.0f, department: hlebobylochnie);
+            Food hleb = new Food(name: "Хлеб", size: 200, markup: 3.0f, department: hlebobylochnie, shelfLife: 2);
             hlebobylochnie.BuyProduct(product: hleb, quantity: 1500, price:10);
-            Product bylochka = new Product(name: "Булочка", size: 100, markup: 2.5f, department: hlebobylochnie);
+            Food bylochka = new Food(name: "Булочка", size: 100, markup: 2.5f, department: hlebobylochnie, shelfLife: 2);
             hlebobylochnie.BuyProduct(product: bylochka, quantity: 800, price: 8);
-            Product pirojok = new Product(name: "Пирожок", size: 84, markup: 2.8f, department: hlebobylochnie);
+            Food pirojok = new Food(name: "Пирожок", size: 84, markup: 2.8f, department: hlebobylochnie, shelfLife: 2);
             hlebobylochnie.BuyProduct(product: pirojok, quantity: 700, price: 6);
             nizkocen.ShowInformation();
 
             Department molochka = new Department(name: "Молочная продукция", area: 4_200_000, emporium: nizkocen);
-            Product moloko = new Product(name: "Молоко", size: 400, markup: 3.0f, department: molochka);
+            Food moloko = new Food(name: "Молоко", size: 400, markup: 3.0f, department: molochka, shelfLife: 3);
             molochka.BuyProduct(product: moloko, quantity: 2000, price: 15);
-            Product smetana = new Product(name: "Сметана", size: 200, markup: 3.0f, department: molochka);
+            Food smetana = new Food(name: "Сметана", size: 200, markup: 3.0f, department: molochka, shelfLife: 3);
             molochka.BuyProduct(product: smetana, quantity: 1800, price: 20);
-            Product kefir = new Product(name: "Кефир", size: 300, markup: 3.2f, department: molochka);
+            Food kefir = new Food(name: "Кефир", size: 300, markup: 3.2f, department: molochka, shelfLife: 3);
             molochka.BuyProduct(product: kefir, quantity: 1600, price: 13);
             nizkocen.ShowInformation();
 
