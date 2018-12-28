@@ -2,7 +2,7 @@
 
 namespace Lab2_2
 {
-    class Cashbox
+    public class Cashbox
     {
         public int StartupCapital { get; }
         public int Budget { get; private set; }
