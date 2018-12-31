@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lab2_2
 {
-    class Emporium
+    public class Emporium
     {
         public string Name { get; }
         public Cashbox Cashbox { get; }

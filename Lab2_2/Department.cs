@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lab2_2
 {
-    class Department : IEquatable<Department>
+    public class Department : IEquatable<Department>
     {
         public string Name { get; }
         public Square Square { get; }

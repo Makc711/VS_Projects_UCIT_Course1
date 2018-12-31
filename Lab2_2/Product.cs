@@ -2,7 +2,7 @@
 
 namespace Lab2_2
 {
-    class Product : IEquatable<Product>
+    public class Product : IEquatable<Product>
     {
         public string Name { get; }
         public int Quantity { get; set; }

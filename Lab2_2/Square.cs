@@ -2,7 +2,7 @@
 
 namespace Lab2_2
 {
-    class Square
+    public class Square
     {
         public int Area { get; private set; } // Полная площадь, см^2
         public int FreeArea { get; private set; } // Свободная площадь, см^2
