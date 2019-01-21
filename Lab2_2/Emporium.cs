@@ -24,7 +24,15 @@ namespace Lab2_2
 
         public void ExpandArea(int area, int costOfOneCentimeter)
         {
-            Cashbox.Buy(area * costOfOneCentimeter);
+            try
+            {
+                Cashbox.Buy(area * costOfOneCentimeter);
+            }
+            catch (ArgumentException)
+            {
+                area = Cashbox.Budget / costOfOneCentimeter;
+                Cashbox.Buy(area * costOfOneCentimeter);
+            }
             Square.ExpandArea(area);
         }
 
@@ -43,7 +51,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"Отдел {department.Name} уже существует");
+                throw new ArgumentException($"Отдел \"{department.Name}\" уже существует");
             }
         }
 
@@ -56,7 +64,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"В универмаге нет отдела {department.Name}");
+                throw new ArgumentException($"В универмаге нет отдела \"{department.Name}\"");
             }
         }
 

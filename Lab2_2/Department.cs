@@ -15,7 +15,14 @@ namespace Lab2_2
             Name = name;
             Square = new Square(area);
             Emporium = emporium;
-            Emporium.AddDepartment(this);
+            try
+            {
+                Emporium.AddDepartment(this);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public Product this[int i] => Products[(i >= 0 && i < Products.Count) ? i : 0];
@@ -40,7 +47,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"Товар {product.Name} уже существует");
+                throw new ArgumentException($"Товар \"{product.Name}\" уже существует");
             }
         }
 
@@ -55,21 +62,37 @@ namespace Lab2_2
                 }
                 else
                 {
-                    throw new InvalidOperationException($"В отделе в имеется еще {product.Quantity} товаров {product.Name}");
+                    throw new InvalidOperationException($"В отделе еще имеется {product.Quantity} товаров \"{product.Name}\"");
                 }
             }
             else
             {
-                throw new ArgumentException($"В отделе нет товара {product.Name}");
+                throw new ArgumentException($"В отделе нет товара \"{product.Name}\"");
             }
         }
 
         public void BuyProduct(Product product, int quantity, int price)
         {
-            Emporium.Cashbox.Buy(quantity * price);
-            Square.OccupyArea(quantity * product.Size);
-            product.Quantity += quantity;
-            product.Pice = (int)(price * product.Markup);
+            try
+            {
+                Emporium.Cashbox.Buy(quantity * price);
+            }
+            catch (ArgumentException)
+            {
+                quantity = Emporium.Cashbox.Budget / price;
+                Emporium.Cashbox.Buy(quantity * price);
+            }
+            try
+            {
+                Square.OccupyArea(quantity * product.Size);
+                product.Quantity += quantity;
+                product.Pice = (int)(price * product.Markup);
+            }
+            catch (ArgumentException ex)
+            {
+                Emporium.Cashbox.Sell(quantity * price);
+                Console.WriteLine(ex);
+            }
         }
 
         public void SellProduct(Product product, int quantity)
@@ -82,7 +105,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"Товар {Name} закончился ({product.Quantity} < {quantity})");
+                throw new ArgumentException($"Товар \"{Name}\" закончился ({product.Quantity} < {quantity})");
             }
         }
 

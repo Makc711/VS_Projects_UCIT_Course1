@@ -17,7 +17,14 @@ namespace Lab2_2
             Size = size;
             Markup = markup;
             Department = department;
-            Department.AddProduct(this);
+            try
+            {
+                Department.AddProduct(this);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public override string ToString()
