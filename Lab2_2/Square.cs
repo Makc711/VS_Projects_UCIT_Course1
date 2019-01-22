@@ -3,7 +3,7 @@
 namespace Lab2_2
 {
     [Serializable]
-    public class Square
+    public class Square : IEquatable<Square>
     {
         public int Area { get; private set; } // Полная площадь, см^2
         public int FreeArea { get; private set; } // Свободная площадь, см^2
@@ -48,6 +48,32 @@ namespace Lab2_2
             {
                 throw new ArgumentException($"Не достаточно полной площади ({Area} < {FreeArea + area})");
             }
+        }
+
+        public bool Equals(Square other)
+        {
+            if (ReferenceEquals(null, other))
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+            return Area == other.Area && 
+                FreeArea == other.FreeArea;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != GetType())
+                return false;
+            return Equals((Square) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return 397;
         }
     }
 }

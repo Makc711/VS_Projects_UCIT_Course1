@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Lab2_2
 {
     [Serializable]
-    public class Emporium
+    public class Emporium : IEquatable<Emporium>
     {
         public string Name { get; }
         public Cashbox Cashbox { get; }
@@ -80,6 +80,47 @@ namespace Lab2_2
                 department.ShowInformation();
             }
             Console.WriteLine();
+        }
+
+        public bool Equals(Emporium other)
+        {
+            if (ReferenceEquals(null, other))
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+            if (Departments.Count != other.Departments.Count)
+                return false;
+            for (int i = 0; i < Departments.Count; i++)
+            {
+                if (!Equals(Departments[i], other.Departments[i]))
+                    return false;
+            }
+            return string.Equals(Name, other.Name) && 
+                Equals(Cashbox, other.Cashbox) && 
+                Equals(Square, other.Square);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != GetType())
+                return false;
+            return Equals((Emporium) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Cashbox != null ? Cashbox.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Square != null ? Square.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Departments != null ? Departments.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

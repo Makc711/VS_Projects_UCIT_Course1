@@ -52,6 +52,7 @@
     <Compile Include="DepartmentTests.cs" />
     <Compile Include="EmporiumTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializeTest.cs" />
     <Compile Include="SquareTests.cs" />
   </ItemGroup>
   <ItemGroup>
