@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Lab2_2
 {
@@ -40,6 +42,15 @@ namespace Lab2_2
             molochka.BuyProduct(product: kefir, quantity: 1600, price: 13);
             nizkocen.ShowInformation();
 
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream("Nizkocen.dat", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, nizkocen);
+                Console.WriteLine();
+                Console.WriteLine("*** Объект сериализован");
+                Console.WriteLine();
+            }
+
             Console.WriteLine("   #####   Продаем хлебобулочную и молочную продукцию   #####");
             try
             {
@@ -59,6 +70,15 @@ namespace Lab2_2
 
             Console.WriteLine("   #####   Пример обращения к продукту отдела по индексу   #####");
             Console.WriteLine(hlebobylochnie[1]);
+
+            using (FileStream fs = new FileStream("Nizkocen.dat", FileMode.OpenOrCreate))
+            {
+                Emporium deserilizeNizkocen = (Emporium)formatter.Deserialize(fs);
+                Console.WriteLine();
+                Console.WriteLine("*** Объект десериализован");
+                Console.WriteLine();
+                deserilizeNizkocen.ShowInformation();
+            }
 
             Console.ReadKey();
         }

@@ -2,6 +2,7 @@
 
 namespace Lab2_2
 {
+    [Serializable]
     public class Square
     {
         public int Area { get; private set; } // Полная площадь, см^2

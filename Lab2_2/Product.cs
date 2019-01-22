@@ -2,6 +2,7 @@
 
 namespace Lab2_2
 {
+    [Serializable]
     public class Product : IEquatable<Product>
     {
         public string Name { get; }

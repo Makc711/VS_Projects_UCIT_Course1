@@ -2,6 +2,7 @@
 
 namespace Lab2_2
 {
+    [Serializable]
     class Food : Product
     {
         public int ShelfLife { get; } // Срок годности, дней

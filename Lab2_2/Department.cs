@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Lab2_2
 {
+    [Serializable]
     public class Department : IEquatable<Department>
     {
         public string Name { get; }

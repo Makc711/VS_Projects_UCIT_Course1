@@ -2,6 +2,7 @@
 
 namespace Lab2_2
 {
+    [Serializable]
     public class Cashbox
     {
         public int StartupCapital { get; }
