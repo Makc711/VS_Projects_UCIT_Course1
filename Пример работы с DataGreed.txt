@@ -1,0 +1,54 @@
+private List<MyClass> _data = new List<MyClass>();
+
+void buttonClickMethod()
+{	    
+	    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "A",
+                HeaderText = "Заголовок 1"
+            });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "B",
+                HeaderText = "Заголовок 2"
+            });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "C",
+                HeaderText = "Заголовок 3"
+            });
+
+            _data.Add(new MyClass("1", "2", "3"));
+            _data.Add(new MyClass("4", "5", "6"));
+            _data.Add(new MyClass("7", "8", "9"));
+            dataGridView1.DataSource = _data;
+
+            dataGridView1.Columns.Add("Id", "Айди");
+            dataGridView1.Columns.Add("Name", "Имя");
+}
+
+	    //dataGridView1.DataSource = null;
+
+            //_data[0].A = "55";
+            //_data[0].B = "66";
+            //_data.Add(new MyClass("10", "11", "12"));
+            //dataGridView1.Update();
+            //dataGridView1.Refresh();
+
+            //int rowNumber = dataGridView1.Rows.Add();
+            //dataGridView1.Rows[rowNumber].Cells["Id"].Value = rowNumber;
+            //dataGridView1.Rows[rowNumber].Cells["Name"].Value = "Вася";
+
+public class MyClass
+    {
+        public string Name { get; set; }
+        public string B { get; set; }
+        public string C { get; set; }
+
+        public MyClass(string name, string b, string c)
+        {
+            Name = name;
+            B = b;
+            C = c;
+        }
+    }

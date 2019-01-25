@@ -6,23 +6,31 @@ namespace Lab2_2
     [Serializable]
     public class Department : IEquatable<Department>
     {
-        public string Name { get; }
+        private string _name;
         public Square Square { get; }
         public Emporium Emporium { get; }
         public List<Product> Products { get; } = new List<Product>();
 
         public Department(string name, int area, Emporium emporium)
         {
-            Name = name;
+            _name = name;
             Square = new Square(area);
             Emporium = emporium;
-            try
+        }
+
+        public string Name
+        {
+            get => _name;
+            set
             {
-                Emporium.AddDepartment(this);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
+                if (!Products.Contains(new Product(value, 0, 0, this)))
+                {
+                    _name = value;
+                }
+                else
+                {
+                    throw new ArgumentException($"Отдел \"{value}\" уже существует");
+                }
             }
         }
 
@@ -87,7 +95,7 @@ namespace Lab2_2
             {
                 Square.OccupyArea(quantity * product.Size);
                 product.Quantity += quantity;
-                product.Pice = (int)(price * product.Markup);
+                product.Price = (int)(price * product.Markup);
             }
             catch (ArgumentException ex)
             {
@@ -101,7 +109,7 @@ namespace Lab2_2
             if (product.Quantity >= quantity)
             {
                 product.Quantity -= quantity;
-                Emporium.Cashbox.Sell(quantity * product.Pice);
+                Emporium.Cashbox.Sell(quantity * product.Price);
                 Square.VacateArea(quantity * product.Size);
             }
             else
@@ -115,7 +123,7 @@ namespace Lab2_2
             Console.WriteLine(this);
             foreach (var product in Products)
             {
-                Console.WriteLine("\t" + product);
+                Console.WriteLine(@"	" + product);
             }
         }
 

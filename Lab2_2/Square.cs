@@ -34,7 +34,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"Не достаточно свободной площади ({FreeArea} < {area})");
+                throw new ArgumentException($"Не достаточно свободной площади ({FreeArea / 10_000} < {area / 10_000})");
             }
         }
 
@@ -46,7 +46,7 @@ namespace Lab2_2
             }
             else
             {
-                throw new ArgumentException($"Не достаточно полной площади ({Area} < {FreeArea + area})");
+                throw new ArgumentException($"Не достаточно полной площади ({Area / 10_000} < {(FreeArea + area) / 10_000})");
             }
         }
 

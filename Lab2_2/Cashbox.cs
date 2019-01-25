@@ -34,8 +34,8 @@ namespace Lab2_2
 
         public void ShowFinances()
         {
-            Console.WriteLine($"Бюджет:  {Budget:0,0} руб.");
-            Console.WriteLine($"Прибыль: {Profit:0,0} руб.");
+            Console.WriteLine($@"Бюджет:  {Budget:0,0} руб.");
+            Console.WriteLine($@"Прибыль: {Profit:0,0} руб.");
         }
 
         public bool Equals(Cashbox other)

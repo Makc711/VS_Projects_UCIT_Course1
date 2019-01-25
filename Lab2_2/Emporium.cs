@@ -25,15 +25,7 @@ namespace Lab2_2
 
         public void ExpandArea(int area, int costOfOneCentimeter)
         {
-            try
-            {
-                Cashbox.Buy(area * costOfOneCentimeter);
-            }
-            catch (ArgumentException)
-            {
-                area = Cashbox.Budget / costOfOneCentimeter;
-                Cashbox.Buy(area * costOfOneCentimeter);
-            }
+            Cashbox.Buy(area * costOfOneCentimeter);
             Square.ExpandArea(area);
         }
 
@@ -71,9 +63,9 @@ namespace Lab2_2
 
         public void ShowInformation()
         {
-            Console.WriteLine($"Название: {Name}");
-            Console.WriteLine($"Площадь универмага: {(double)Square.Area /10000:0,0.0} м^2");
-            Console.WriteLine($"Свободная площадь:  {(double)Square.FreeArea /10000:0,0.0} м^2");
+            Console.WriteLine($@"Название: {Name}");
+            Console.WriteLine($@"Площадь универмага: {(double)Square.Area /10000:0,0.0} м^2");
+            Console.WriteLine($@"Свободная площадь:  {(double)Square.FreeArea /10000:0,0.0} м^2");
             Cashbox.ShowFinances();
             foreach (var department in Departments)
             {

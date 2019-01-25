@@ -17,7 +17,7 @@ namespace Lab2_2
 
         public override string ToString()
         {
-            return $"{Name}; Количество: {Quantity}; Цена: {Pice}; Остаточный срок годности: {ResidualShelfLife} дней";
+            return $"{Name}; Количество: {Quantity}; Цена: {Price}; Остаточный срок годности: {ResidualShelfLife} дней";
         }
     }
 }

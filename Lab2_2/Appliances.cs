@@ -11,7 +11,7 @@
 
         public override string ToString()
         {
-            return $"{Name}; Количество: {Quantity}; Цена: {Pice}; Гарантия: {WarrantyPeriod} мес.";
+            return $"{Name}; Количество: {Quantity}; Цена: {Price}; Гарантия: {WarrantyPeriod} мес.";
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Lab2_2
         public int Quantity { get; set; }
         public int Size { get; } // Занимаемая площадь одним продуктом, см^2
         public float Markup { get; } // Наценка (150% = 1,5)
-        public int Pice { get; set; }
+        public int Price { get; set; }
         public Department Department { get; }
 
         public Product(string name, int size, float markup, Department department)
@@ -18,19 +18,11 @@ namespace Lab2_2
             Size = size;
             Markup = markup;
             Department = department;
-            try
-            {
-                Department.AddProduct(this);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
         }
 
         public override string ToString()
         {
-            return $"{Name}; Количество: {Quantity}; Цена: {Pice}";
+            return $"{Name}; Количество: {Quantity}; Цена: {Price}";
         }
 
         public bool Equals(Product other)
